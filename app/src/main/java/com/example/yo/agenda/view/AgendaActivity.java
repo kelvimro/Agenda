@@ -19,8 +19,11 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class AgendaActivity extends AppCompatActivity {
-    private ListView listview;
+    @BindView(R.id.listView) ListView listview;
     private List<Contato> lista;
 
     private int action;
@@ -34,6 +37,8 @@ public class AgendaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
+        ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -42,8 +47,6 @@ public class AgendaActivity extends AppCompatActivity {
         if(b != null) {
             contato = (Contato) b.get("contato");
         }
-
-        listview = (ListView) findViewById(R.id.listView);
 
         lista = SQLite.select().from(Contato.class).queryList();
 
@@ -94,8 +97,6 @@ public class AgendaActivity extends AppCompatActivity {
                     Intent i = new Intent(getBaseContext(), Concatofull.class);
                     i.putExtra("contato",lista.get(position));
                     startActivity(i);
-
-
                 } else if (action == 3) {
                     lista.get(position).delete();
                 }

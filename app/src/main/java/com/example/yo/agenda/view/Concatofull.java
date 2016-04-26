@@ -12,9 +12,16 @@ import android.widget.EditText;
 import com.example.yo.agenda.R;
 import com.example.yo.agenda.model.Contato;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class Concatofull extends AppCompatActivity {
-    EditText edtnome;
-    EditText edtnumero;
+    @BindView(R.id.editTextnome)
+            EditText edtnome;
+
+    @BindView(R.id.editTextnumero)
+            EditText edtnumero;
+
     Contato contato;
     boolean update=false;
 
@@ -22,11 +29,9 @@ public class Concatofull extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concatofull);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        edtnome = (EditText) findViewById(R.id.editTextnome);
-        edtnumero = (EditText) findViewById(R.id.editTextnumero);
 
         contato = new Contato();
 
@@ -35,7 +40,6 @@ public class Concatofull extends AppCompatActivity {
 
         if(b != null) {
             contato = (Contato) b.get("contato");
-
             edtnome.setText(contato.getNome());
             edtnumero.setText(contato.getNumero());
             update = true;
@@ -53,7 +57,6 @@ public class Concatofull extends AppCompatActivity {
                 if (update){
                     contato.update();
                 }else {
-
                     contato.save();
                 }
 
